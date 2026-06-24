@@ -46,6 +46,11 @@ const navLinks = [
     href: "https://linkedin.com/in/thecoderpanda",
     external: true,
   },
+  {
+    label: "YouTube",
+    href: "https://youtube.com/@thecoderpanda",
+    external: true,
+  },
 ];
 
 export default function RootLayout({
