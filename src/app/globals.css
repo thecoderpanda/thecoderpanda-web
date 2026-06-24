@@ -1,0 +1,42 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+:root {
+  --font-geist: "Geist", system-ui, -apple-system, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-geist), system-ui, -apple-system, sans-serif;
+}
+
+@theme inline {
+  --font-sans: var(--font-geist);
+}
+
+::selection {
+  background-color: #1a1a1a;
+  color: #faf9f7;
+}
+
+.prose {
+  --tw-prose-body: #3a3a3a;
+  --tw-prose-headings: #1a1a1a;
+  --tw-prose-lead: #4a4a4a;
+  --tw-prose-links: #1a1a1a;
+  --tw-prose-bold: #1a1a1a;
+  --tw-prose-counters: #9a9a9a;
+  --tw-prose-bullets: #c0bdb8;
+  --tw-prose-hr: #e8e5e0;
+  --tw-prose-quotes: #1a1a1a;
+  --tw-prose-quote-borders: #e8e5e0;
+  --tw-prose-captions: #9a9a9a;
+  --tw-prose-code: #1a1a1a;
+  --tw-prose-pre-code: #e8e5e0;
+  --tw-prose-pre-bg: #1a1a1a;
+  --tw-prose-th-borders: #e8e5e0;
+  --tw-prose-td-borders: #f0ede8;
+}
