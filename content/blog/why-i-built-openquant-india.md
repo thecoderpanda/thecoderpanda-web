@@ -5,6 +5,8 @@ date: 2026-08-14T09:00:00.000Z
 slug: why-i-built-openquant-india
 ---
 
+![The quiet gap between the number on your screen and the number you'd actually live with](/blog/openquant/gap-chart.png)
+
 # Why I Built OpenQuant India
 
 > **TL;DR:** I built **[OpenQuant India](https://github.com/thecoderpanda/openquant)** because the free tools for backtesting Indian equities quietly leave out the parts that actually decide whether a strategy is any good — taxes, fees, slippage, dead companies, corporate actions. It's open source, Apache-2.0, seven small Python packages. No promises. No signals. Just infrastructure that tries to be honest.
@@ -34,6 +36,8 @@ Here is what a free backtest usually leaves out:
 
 Add all of that back into a backtest and the story on the screen changes. Sometimes a little. Sometimes a lot. The point is not to be scary about it — the point is that a strategy should be judged on the honest version of its story, not the polished one.
 
+![A quiet desk, a laptop, a notebook, and a cup of chai — the actual conditions most strategies get written in](/blog/openquant/desk.png)
+
 ## What I actually built
 
 OpenQuant India is not one big library. It's seven small ones, each doing one thing, each installable on its own.
@@ -45,6 +49,8 @@ OpenQuant India is not one big library. It's seven small ones, each doing one th
 - **`oq-mcp`** — an MCP server, so you can drive the whole stack from Claude Desktop or any other MCP client.
 - **`oq-zoo`** — a community strategy library, gated by an honesty test before anything gets in.
 - **`oqstack`** — a meta-package that installs everything in one line for people who just want it all.
+
+![The OpenQuant stack — seven small packages, each doing one thing](/blog/openquant/stack.png)
 
 Each of these is genuinely small. You can pull in only the piece you need. Or you can `pip install oqstack` and get the lot.
 
