@@ -1,8 +1,9 @@
 ---
 title: OpenQuant India
 description: Honest, open-source quant infrastructure for Indian markets. Your backtest is lying to you — OpenQuant fixes that.
-status: building
+status: active
 tags: [Open Source, Quant Finance, Python, NSE, Building in Public]
+url: https://openquant.in
 github: https://github.com/revorhq/openquant
 year: "2025"
 ---
@@ -68,6 +69,10 @@ cal.session_count(date(2024, 1, 1), date(2024, 12, 31))
 - **Phase 3 — MCP Server**: data and backtests exposed to LLM clients (Claude Desktop, etc.).
 - **Phase 4 — Execution Layer**: paper + live broker abstraction with SEBI-2026 compliance built in.
 - **Phase 5 — Ecosystem**: docs site, strategy zoo, Discord, cohorts.
+
+## Status
+
+**Live.** `oq-core` shipped on PyPI, project home at [openquant.in](https://openquant.in), source at [github.com/revorhq/openquant](https://github.com/revorhq/openquant). Actively building out the data + backtest layers next — contributions welcome.
 
 ---
 

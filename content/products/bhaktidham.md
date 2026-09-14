@@ -1,7 +1,7 @@
 ---
 title: Bhaktidham
 description: A devotional database and one-stop solution — temples, rituals, and devotional content, organised and accessible in one place.
-status: building
+status: active
 tags: [Devotional, Database, Indian Culture, Next.js, PWA]
 url: https://bhaktidham.online
 year: "2025"
@@ -36,4 +36,4 @@ Indian families — particularly the generation that grew up with WhatsApp forwa
 
 ## Status
 
-Currently in active development. First release focuses on the Ganpati + Diwali + Navratri corridor with 100+ verified temples across Maharashtra, Gujarat, and Karnataka.
+**Live** at [bhaktidham.online](https://bhaktidham.online). First release covers the Ganpati + Diwali + Navratri corridor with verified temples across Maharashtra, Gujarat, and Karnataka. Content library and regional coverage expanding weekly.
