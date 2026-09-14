@@ -3,6 +3,8 @@
 
 :root {
   --font-geist: "Geist", system-ui, -apple-system, sans-serif;
+  --font-serif: var(--font-fraunces), "Iowan Old Style", "Georgia", serif;
+  --font-ui: var(--font-inter), var(--font-geist), system-ui, sans-serif;
 }
 
 html {
@@ -10,11 +12,14 @@ html {
 }
 
 body {
-  font-family: var(--font-geist), system-ui, -apple-system, sans-serif;
+  font-family: var(--font-ui);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 @theme inline {
-  --font-sans: var(--font-geist);
+  --font-sans: var(--font-ui);
+  --font-serif: var(--font-serif);
 }
 
 ::selection {
@@ -23,17 +28,17 @@ body {
 }
 
 .prose {
-  --tw-prose-body: #3a3a3a;
-  --tw-prose-headings: #1a1a1a;
-  --tw-prose-lead: #4a4a4a;
+  --tw-prose-body: #2a2a2a;
+  --tw-prose-headings: #111;
+  --tw-prose-lead: #3a3a3a;
   --tw-prose-links: #1a1a1a;
-  --tw-prose-bold: #1a1a1a;
+  --tw-prose-bold: #111;
   --tw-prose-counters: #9a9a9a;
   --tw-prose-bullets: #c0bdb8;
   --tw-prose-hr: #e8e5e0;
   --tw-prose-quotes: #1a1a1a;
-  --tw-prose-quote-borders: #e8e5e0;
-  --tw-prose-captions: #9a9a9a;
+  --tw-prose-quote-borders: #d4a017;
+  --tw-prose-captions: #8a8a8a;
   --tw-prose-code: #1a1a1a;
   --tw-prose-pre-code: #e8e5e0;
   --tw-prose-pre-bg: #1a1a1a;
@@ -41,14 +46,58 @@ body {
   --tw-prose-td-borders: #f0ede8;
 }
 
+.blog-title {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  font-optical-sizing: auto;
+  font-variation-settings: "opsz" 144, "SOFT" 30;
+}
+
 .blog-prose {
-  font-size: 1.075rem;
-  line-height: 1.8;
+  font-family: var(--font-serif);
+  font-size: 1.185rem;
+  line-height: 1.75;
+  color: #2a2a2a;
+  font-optical-sizing: auto;
+  font-variation-settings: "opsz" 14, "SOFT" 50;
+}
+
+.blog-prose p {
+  margin-top: 1.35em;
+  margin-bottom: 1.35em;
+}
+
+.blog-prose h1,
+.blog-prose h2,
+.blog-prose h3,
+.blog-prose h4 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  font-optical-sizing: auto;
+  font-variation-settings: "opsz" 72, "SOFT" 30;
+  color: #111;
+}
+
+.blog-prose h2 {
+  margin-top: 2.4em;
+  font-size: 1.65rem;
+  line-height: 1.25;
+}
+
+.blog-prose h3 {
+  margin-top: 1.9em;
+  font-size: 1.32rem;
+  line-height: 1.3;
 }
 
 .blog-prose a {
-  text-decoration-color: #c0bdb8;
+  color: #1a1a1a;
+  text-decoration-color: #d4a017;
+  text-decoration-thickness: 1.5px;
   text-underline-offset: 3px;
+  transition: text-decoration-color 0.15s ease;
 }
 
 .blog-prose a:hover {
@@ -56,20 +105,30 @@ body {
 }
 
 .blog-prose img {
-  border-radius: 8px;
-  margin: 2rem auto;
+  border-radius: 10px;
+  margin: 2.25rem auto;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.blog-prose figure {
+  margin: 2.25rem 0;
 }
 
 .blog-prose pre {
-  border-radius: 8px;
-  font-size: 0.9rem;
+  font-family: ui-monospace, "SF Mono", "Menlo", monospace;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  line-height: 1.65;
+  padding: 1.1rem 1.25rem;
 }
 
 .blog-prose :not(pre) > code {
+  font-family: ui-monospace, "SF Mono", "Menlo", monospace;
   background-color: #f0ede8;
-  padding: 0.15rem 0.4rem;
+  padding: 0.12rem 0.4rem;
   border-radius: 4px;
   font-weight: 500;
+  font-size: 0.92em;
 }
 
 .blog-prose :not(pre) > code::before,
@@ -78,13 +137,49 @@ body {
 }
 
 .blog-prose blockquote {
-  font-style: normal;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
   border-left-width: 3px;
-  padding-left: 1.25rem;
-  color: #4a4a4a;
+  border-left-color: #d4a017;
+  padding-left: 1.5rem;
+  margin-left: 0;
+  color: #3a3a3a;
+  font-size: 1.15rem;
 }
 
 .blog-prose blockquote p::before,
 .blog-prose blockquote p::after {
   content: "";
+}
+
+.blog-prose ul,
+.blog-prose ol {
+  margin: 1.35em 0;
+  padding-left: 1.5em;
+}
+
+.blog-prose li {
+  margin: 0.5em 0;
+}
+
+.blog-prose li::marker {
+  color: #c0bdb8;
+}
+
+.blog-prose hr {
+  border-color: #e8e5e0;
+  margin: 3em auto;
+  width: 40%;
+}
+
+.blog-prose strong {
+  color: #111;
+  font-weight: 600;
+}
+
+.blog-lead {
+  font-family: var(--font-serif);
+  font-optical-sizing: auto;
+  font-variation-settings: "opsz" 24, "SOFT" 50;
 }

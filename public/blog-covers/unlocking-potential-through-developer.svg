@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 840" width="1600" height="840" role="img" aria-label="Unlocking potential through Developer community: The 10 Key Elements of Building a community.">
+  <defs>
+    <pattern id="pat" x="0" y="0" width="60" height="30" patternUnits="userSpaceOnUse">
+  <path d="M0 15 Q 15 0, 30 15 T 60 15" fill="none" stroke="#f2a6c2" stroke-width="1.4" opacity="0.2"/>
+</pattern>
+    <linearGradient id="fade" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f2a6c2" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#f2a6c2" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="840" fill="#2a1a2e"/>
+  <rect width="1600" height="840" fill="url(#pat)"/>
+  <rect width="1600" height="840" fill="url(#fade)"/>
+
+  <!-- Accent bar -->
+  <rect x="90" y="90" width="70" height="6" rx="3" fill="#f2a6c2"/>
+
+  <!-- Kicker -->
+  <text x="90" y="140" font-family="'Inter', 'Geist', system-ui, sans-serif"
+        font-size="26" letter-spacing="6" fill="#a897a9" font-weight="600">
+    THECODERPANDA · BLOG
+  </text>
+
+  <!-- Title -->
+  <text font-family="'Fraunces', 'Iowan Old Style', Georgia, serif"
+        font-size="68" font-weight="600" fill="#faf9f7"
+        y="314.4" style="letter-spacing:-0.02em;">
+    <tspan x="90" dy="0">Unlocking potential</tspan><tspan x="90" dy="80">through Developer</tspan><tspan x="90" dy="80">community: The 10</tspan><tspan x="90" dy="80">Key Elements of…</tspan>
+  </text>
+
+  <!-- Footer meta -->
+  <text x="90" y="750" font-family="'Inter', 'Geist', system-ui, sans-serif"
+        font-size="26" fill="#a897a9" font-weight="500">
+    Shantanu Vishwanadha · thecoderpanda.com
+  </text>
+
+  <!-- Monogram + year badge -->
+  <g transform="translate(1380, 620)">
+    <circle cx="80" cy="80" r="80" fill="none" stroke="#f2a6c2" stroke-width="2" opacity="0.65"/>
+    <text x="80" y="88" text-anchor="middle"
+          font-family="'Fraunces', Georgia, serif" font-size="48" font-weight="600"
+          fill="#faf9f7" style="letter-spacing:-0.03em;">tcp</text>
+    
+  </g>
+</svg>

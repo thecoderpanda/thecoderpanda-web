@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import { Geist, Fraunces, Inter } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
 
@@ -8,7 +8,21 @@ const geist = Geist({
   subsets: ["latin"],
 });
 
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin"],
+  display: "swap",
+  axes: ["opsz", "SOFT"],
+});
+
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
+  metadataBase: new URL("https://thecoderpanda.com"),
   title: "Shantanu Vishwanadha — thecoderpanda",
   description:
     "Developer Relations. Community Builder. Connecting developers with AI products that matter.",
@@ -55,7 +69,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geist.variable} h-full`}>
+    <html lang="en" className={`${geist.variable} ${fraunces.variable} ${inter.variable} h-full`}>
       <body className="min-h-full bg-[#faf9f7] text-[#1a1a1a] antialiased">
         <nav className="max-w-2xl mx-auto px-6 py-7 flex items-center justify-between">
           <Link

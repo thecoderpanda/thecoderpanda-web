@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getAllPosts, formatDate } from "@/lib/blog";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import { AnimatedHero } from "@/components/AnimatedHero";
+import { NewsletterWidget } from "@/components/NewsletterWidget";
 
 export const metadata = {
   title: "Blog — thecoderpanda",
@@ -26,13 +27,13 @@ export default function BlogPage() {
               </p>,
               <h1
                 key="title"
-                className="text-5xl font-semibold tracking-tight text-[#1a1a1a] leading-[1.1] mb-5"
+                className="blog-title text-5xl sm:text-6xl text-[#111] leading-[1.05] mb-5"
               >
                 Blog
               </h1>,
               <p
                 key="desc"
-                className="text-lg text-[#4a4a4a] leading-relaxed max-w-md"
+                className="blog-lead text-lg text-[#4a4a4a] leading-relaxed max-w-md"
               >
                 Notes on developer relations, AI tooling, and building things
                 worth using.
@@ -41,21 +42,28 @@ export default function BlogPage() {
           </AnimatedHero>
         </section>
 
-        <section className="pb-16 border-t border-[#e8e5e0] pt-12">
+        <section className="pb-8 border-t border-[#e8e5e0] pt-10">
           <div className="space-y-px">
             {posts.map((post, i) => (
-              <AnimatedSection key={post.slug} delay={i * 0.06}>
+              <AnimatedSection key={post.slug} delay={i * 0.04}>
                 <Link
                   href={`/blog/${post.slug}`}
-                  className="group flex items-start justify-between gap-6 py-6 border-b border-[#e8e5e0] hover:bg-[#f5f3f0] -mx-4 px-4 transition-colors duration-200 rounded-lg"
+                  className="group flex items-start gap-5 py-6 border-b border-[#e8e5e0] hover:bg-[#f5f3f0] -mx-4 px-4 transition-colors duration-200 rounded-lg"
                 >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={post.cover}
+                    alt=""
+                    className="shrink-0 w-20 h-20 sm:w-24 sm:h-24 rounded-lg object-cover border border-[#e8e5e0]"
+                    loading="lazy"
+                  />
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-3 mb-2 text-xs text-[#9a9a9a]">
+                    <div className="flex items-center gap-3 mb-2 text-xs tracking-wider uppercase text-[#9a9a9a]">
                       <span>{formatDate(post.date)}</span>
                       <span>·</span>
-                      <span>{post.readingTime} min read</span>
+                      <span>{post.readingTime} min</span>
                     </div>
-                    <h2 className="text-base font-medium text-[#1a1a1a] group-hover:text-[#333] transition-colors mb-2">
+                    <h2 className="blog-title text-lg sm:text-xl text-[#111] group-hover:text-[#333] transition-colors mb-1.5 leading-snug">
                       {post.title}
                     </h2>
                     {post.subtitle && (
@@ -63,23 +71,6 @@ export default function BlogPage() {
                         {post.subtitle}
                       </p>
                     )}
-                  </div>
-                  <div className="shrink-0 mt-1 text-[#c0bdb8] group-hover:text-[#1a1a1a] transition-colors duration-200">
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M3 8h10M9 4l4 4-4 4"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
                   </div>
                 </Link>
               </AnimatedSection>
@@ -91,6 +82,10 @@ export default function BlogPage() {
               Nothing here yet.
             </p>
           )}
+        </section>
+
+        <section className="pb-16">
+          <NewsletterWidget />
         </section>
       </main>
     </div>

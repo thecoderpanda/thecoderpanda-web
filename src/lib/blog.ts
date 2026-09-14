@@ -10,6 +10,7 @@ export interface BlogPost {
   subtitle: string;
   date: string;
   readingTime: number;
+  cover: string;
 }
 
 export interface BlogPostWithContent extends BlogPost {
@@ -36,6 +37,11 @@ function toIsoDate(d: unknown): string {
   return s;
 }
 
+function coverFor(slug: string, explicit?: unknown): string {
+  if (typeof explicit === "string" && explicit.length > 0) return explicit;
+  return `/blog-covers/${slug}.svg`;
+}
+
 export function getAllPosts(): BlogPost[] {
   if (!fs.existsSync(blogDir)) return [];
 
@@ -46,13 +52,15 @@ export function getAllPosts(): BlogPost[] {
     const raw = fs.readFileSync(path.join(blogDir, file), "utf8");
     const { data, content } = matter(raw);
     const words = content.trim().split(/\s+/).length;
+    const resolvedSlug = data.slug ?? slug;
 
     return {
-      slug: data.slug ?? slug,
+      slug: resolvedSlug,
       title: data.title ?? slug,
       subtitle: data.subtitle ?? "",
       date: toIsoDate(data.date),
       readingTime: wordsToReadingTime(words),
+      cover: coverFor(resolvedSlug, data.cover),
     };
   });
 
@@ -64,12 +72,14 @@ export function getPostBySlug(slug: string): BlogPostWithContent | null {
   if (direct) {
     const { data, content } = direct;
     const words = content.trim().split(/\s+/).length;
+    const resolvedSlug = data.slug ?? slug;
     return {
-      slug: data.slug ?? slug,
+      slug: resolvedSlug,
       title: data.title ?? slug,
       subtitle: data.subtitle ?? "",
       date: toIsoDate(data.date),
       readingTime: wordsToReadingTime(words),
+      cover: coverFor(resolvedSlug, data.cover),
       content,
     };
   }
@@ -88,6 +98,7 @@ export function getPostBySlug(slug: string): BlogPostWithContent | null {
         subtitle: data.subtitle ?? "",
         date: toIsoDate(data.date),
         readingTime: wordsToReadingTime(words),
+        cover: coverFor(slug, data.cover),
         content,
       };
     }

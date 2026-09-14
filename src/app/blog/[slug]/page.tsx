@@ -3,6 +3,8 @@ import Link from "next/link";
 import { marked } from "marked";
 import { getAllPosts, getPostBySlug, formatDate } from "@/lib/blog";
 import { AnimatedSection } from "@/components/AnimatedSection";
+import { ShareButtons } from "@/components/ShareButtons";
+import { NewsletterWidget } from "@/components/NewsletterWidget";
 
 export async function generateStaticParams() {
   return getAllPosts().map((p) => ({ slug: p.slug }));
@@ -19,6 +21,18 @@ export async function generateMetadata({
   return {
     title: `${post.title} — thecoderpanda`,
     description: post.subtitle,
+    openGraph: {
+      title: post.title,
+      description: post.subtitle,
+      images: [post.cover],
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.subtitle,
+      images: [post.cover],
+    },
   };
 }
 
@@ -37,10 +51,10 @@ export default async function BlogPostPage({
     <div className="min-h-screen bg-[#faf9f7]">
       <main className="max-w-2xl mx-auto px-6 pb-20">
         <AnimatedSection>
-          <div className="pt-10 pb-10 border-b border-[#e8e5e0]">
+          <div className="pt-8 pb-8">
             <Link
               href="/blog"
-              className="inline-flex items-center gap-2 text-sm text-[#9a9a9a] hover:text-[#1a1a1a] transition-colors duration-200 mb-10"
+              className="inline-flex items-center gap-2 text-sm text-[#9a9a9a] hover:text-[#1a1a1a] transition-colors duration-200 mb-8"
             >
               <svg
                 width="14"
@@ -60,28 +74,46 @@ export default async function BlogPostPage({
               All Posts
             </Link>
 
-            <div className="flex items-center gap-3 mb-4 text-xs text-[#9a9a9a]">
+            <div className="flex items-center gap-3 mb-5 text-xs tracking-widest uppercase text-[#9a9a9a]">
               <span>{formatDate(post.date)}</span>
               <span>·</span>
               <span>{post.readingTime} min read</span>
             </div>
 
-            <h1 className="text-4xl font-semibold tracking-tight text-[#1a1a1a] leading-tight mb-4">
+            <h1 className="blog-title text-4xl sm:text-5xl text-[#111] leading-[1.1] mb-5">
               {post.title}
             </h1>
             {post.subtitle && (
-              <p className="text-lg text-[#4a4a4a] leading-relaxed">
+              <p className="blog-lead text-xl text-[#3a3a3a] leading-relaxed">
                 {post.subtitle}
               </p>
             )}
           </div>
         </AnimatedSection>
 
+        <AnimatedSection delay={0.05}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={post.cover}
+            alt=""
+            className="w-full rounded-xl border border-[#e8e5e0] mb-2"
+            loading="eager"
+          />
+        </AnimatedSection>
+
         <AnimatedSection delay={0.1}>
           <article
-            className="prose prose-stone prose-lg max-w-none pt-10 blog-prose"
+            className="prose prose-stone max-w-none pt-8 blog-prose"
             dangerouslySetInnerHTML={{ __html: html }}
           />
+        </AnimatedSection>
+
+        <AnimatedSection delay={0.15}>
+          <ShareButtons title={post.title} slug={post.slug} />
+        </AnimatedSection>
+
+        <AnimatedSection delay={0.2}>
+          <NewsletterWidget />
         </AnimatedSection>
       </main>
     </div>
