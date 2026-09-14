@@ -4,7 +4,7 @@ description: Honest, open-source quant infrastructure for Indian markets. Your b
 status: active
 tags: [Open Source, Quant Finance, Python, NSE, Building in Public]
 url: https://openquant.in
-github: https://github.com/revorhq/openquant
+github: https://github.com/thecoderpanda/openquant
 year: "2025"
 ---
 
@@ -72,7 +72,7 @@ cal.session_count(date(2024, 1, 1), date(2024, 12, 31))
 
 ## Status
 
-**Live.** `oq-core` shipped on PyPI, project home at [openquant.in](https://openquant.in), source at [github.com/revorhq/openquant](https://github.com/revorhq/openquant). Actively building out the data + backtest layers next — contributions welcome.
+**Live.** `oq-core` shipped on PyPI, project home at [openquant.in](https://openquant.in), source at [github.com/thecoderpanda/openquant](https://github.com/thecoderpanda/openquant). Actively building out the data + backtest layers next — contributions welcome.
 
 ---
 
