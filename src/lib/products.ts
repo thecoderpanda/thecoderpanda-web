@@ -13,6 +13,12 @@ export interface Product {
   url?: string;
   github?: string;
   year?: string;
+  cover: string;
+}
+
+function coverFor(slug: string, explicit?: unknown): string {
+  if (typeof explicit === "string" && explicit.length > 0) return explicit;
+  return `/product-covers/${slug}.svg`;
 }
 
 export interface ProductWithContent extends Product {
@@ -41,6 +47,7 @@ export function getAllProducts(): Product[] {
       url: data.url,
       github: data.github,
       year: data.year,
+      cover: coverFor(slug, data.cover),
     };
   });
 }
@@ -61,6 +68,7 @@ export function getProductBySlug(slug: string): ProductWithContent | null {
     url: data.url,
     github: data.github,
     year: data.year,
+    cover: coverFor(slug, data.cover),
     content,
   };
 }

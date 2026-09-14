@@ -20,6 +20,11 @@ export async function generateMetadata({
   return {
     title: `${product.title} — thecoderpanda`,
     description: product.description,
+    openGraph: {
+      title: product.title,
+      description: product.description,
+      images: [{ url: product.cover }],
+    },
   };
 }
 
@@ -70,6 +75,15 @@ export default async function ProductPage({
               </svg>
               All Products
             </Link>
+
+            <div className="rounded-2xl overflow-hidden border border-[#e8e5e0] bg-[#f0ede8] mb-10 aspect-[16/9]">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={product.cover}
+                alt=""
+                className="w-full h-full object-cover"
+              />
+            </div>
 
             <div className="flex items-center gap-3 mb-4">
               <span

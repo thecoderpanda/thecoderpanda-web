@@ -12,13 +12,19 @@ const statusConfig: Record<
   archived: { label: "Archived", color: "text-[#9a9a9a] bg-[#f0ede8]" },
 };
 
+export const metadata = {
+  title: "Products — thecoderpanda",
+  description:
+    "Things I've built, contributed to, or helped grow. Each one taught me something the next one benefited from.",
+};
+
 export default function ProductsPage() {
   const products = getAllProducts();
 
   return (
     <div className="min-h-screen bg-[#faf9f7]">
-      <main className="max-w-2xl mx-auto px-6">
-        <section className="pt-16 pb-16">
+      <main className="max-w-6xl mx-auto px-6">
+        <section className="pt-16 pb-14">
           <AnimatedHero>
             {[
               <p
@@ -29,13 +35,13 @@ export default function ProductsPage() {
               </p>,
               <h1
                 key="title"
-                className="text-5xl font-semibold tracking-tight text-[#1a1a1a] leading-[1.1] mb-5"
+                className="blog-title text-5xl sm:text-6xl text-[#111] leading-[1.05] mb-5"
               >
                 Products
               </h1>,
               <p
                 key="desc"
-                className="text-lg text-[#4a4a4a] leading-relaxed max-w-md"
+                className="blog-lead text-lg text-[#4a4a4a] leading-relaxed max-w-md"
               >
                 Things I&apos;ve built, contributed to, or helped grow. Each
                 one taught me something the next one benefited from.
@@ -44,33 +50,47 @@ export default function ProductsPage() {
           </AnimatedHero>
         </section>
 
-        <section className="pb-16 border-t border-[#e8e5e0] pt-12">
-          <div className="space-y-px">
+        <section className="pb-16 border-t border-[#e8e5e0] pt-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {products.map((product, i) => {
               const status = statusConfig[product.status];
               return (
-                <AnimatedSection key={product.slug} delay={i * 0.06}>
+                <AnimatedSection key={product.slug} delay={i * 0.05}>
                   <Link
                     href={`/products/${product.slug}`}
-                    className="group flex items-start justify-between gap-6 py-6 border-b border-[#e8e5e0] hover:bg-[#f5f3f0] -mx-4 px-4 transition-colors duration-200 rounded-lg"
+                    className="group block h-full rounded-2xl border border-[#e8e5e0] bg-white overflow-hidden hover:border-[#c0bdb8] hover:shadow-[0_6px_24px_-12px_rgba(0,0,0,0.15)] transition-all duration-200"
                   >
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-3 mb-2">
-                        <h2 className="text-base font-medium text-[#1a1a1a] group-hover:text-[#333] transition-colors">
-                          {product.title}
-                        </h2>
+                    <div className="aspect-[16/9] overflow-hidden bg-[#f0ede8]">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={product.cover}
+                        alt=""
+                        className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-300"
+                        loading="lazy"
+                      />
+                    </div>
+                    <div className="p-5 sm:p-6">
+                      <div className="flex items-center gap-3 mb-3">
                         <span
                           className={`text-[10px] font-medium px-2 py-0.5 rounded-full tracking-wide uppercase ${status.color}`}
                         >
                           {status.label}
                         </span>
+                        {product.year && (
+                          <span className="text-[11px] text-[#9a9a9a] tracking-widest uppercase">
+                            {product.year}
+                          </span>
+                        )}
                       </div>
-                      <p className="text-sm text-[#6b6b6b] leading-relaxed line-clamp-2">
+                      <h2 className="blog-title text-xl text-[#111] group-hover:text-[#333] transition-colors mb-2 leading-snug line-clamp-2">
+                        {product.title}
+                      </h2>
+                      <p className="text-sm text-[#6b6b6b] leading-relaxed line-clamp-3">
                         {product.description}
                       </p>
                       {product.tags.length > 0 && (
-                        <div className="flex flex-wrap gap-2 mt-3">
-                          {product.tags.map((tag) => (
+                        <div className="flex flex-wrap gap-2 mt-4">
+                          {product.tags.slice(0, 3).map((tag) => (
                             <span
                               key={tag}
                               className="text-[11px] text-[#9a9a9a] bg-[#f0ede8] px-2 py-0.5 rounded"
@@ -80,23 +100,6 @@ export default function ProductsPage() {
                           ))}
                         </div>
                       )}
-                    </div>
-                    <div className="shrink-0 mt-1 text-[#c0bdb8] group-hover:text-[#1a1a1a] transition-colors duration-200">
-                      <svg
-                        width="16"
-                        height="16"
-                        viewBox="0 0 16 16"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M3 8h10M9 4l4 4-4 4"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
                     </div>
                   </Link>
                 </AnimatedSection>
