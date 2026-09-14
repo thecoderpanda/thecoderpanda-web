@@ -215,3 +215,14 @@ By following these steps, even users with a basic understanding of observability
 If you have any questions or queries, please reach out to the Signoz team on Slack!
 
 **Happy monitoring!**
+
+## Kafka metrics pipeline
+
+```mermaid
+flowchart LR
+    Broker[Kafka Broker JMX] --> Exporter[JMX Exporter]
+    Exporter --> Prom[(Prometheus)]
+    Prom --> Graf[Grafana]
+    Prom --> Alert[Alertmanager]
+    Alert --> On[On-call]
+```

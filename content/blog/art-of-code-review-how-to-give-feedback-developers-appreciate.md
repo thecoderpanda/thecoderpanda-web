@@ -66,3 +66,21 @@ A: Normalize the idea that anyone can review any pull request. Encourage junior 
 *Bear markets are where the real builders are found. Subscribe for weekly reality checks.*
 
 *— [Shantanu Vishwanadha](https://substack.com/@thecoderpanda)*
+
+## A useful review, drawn
+
+```mermaid
+flowchart TD
+    Diff[Diff arrives] --> Read[Read the *why*, not just the what]
+    Read --> Ask{Do I understand the goal?}
+    Ask -- No --> Q[Ask a question — do not assume]
+    Q --> Read
+    Ask -- Yes --> Class[Classify each note]
+    Class --> B[Blocking — real bug or risk]
+    Class --> S[Suggestion — nice, not required]
+    Class --> N[Nit — cosmetic, mark it]
+    B --> Merge{All blockers fixed?}
+    S --> Merge
+    N --> Merge
+    Merge -- Yes --> Approve[Approve + short summary]
+```

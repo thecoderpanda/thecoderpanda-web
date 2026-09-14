@@ -437,3 +437,14 @@ To join the UDF Builder Program and unlock exclusive perks:
 The **Hemera Protocol** and its **User-Defined Functions (UDFs)** are redefining how we interact with blockchain data. From streamlined data queries to scalable applications like the ERC721 Mint Dashboard, Hemera empowers developers to build powerful, real-world tools with ease.
 
 The journey doesn’t stop here. With Hemera, the possibilities are endless. Whether it’s creating new dashboards, optimizing existing logic, or contributing to the growing ecosystem, you’re at the forefront of blockchain data innovation.
+
+## Data flow: from mint to dashboard
+
+```mermaid
+flowchart TD
+    Mint[ERC-721 Mint event] --> UDF[Hemera UDF]
+    UDF --> Aggregate[Aggregate: minters, price, count]
+    Aggregate --> Cache[(Cache)]
+    Cache --> Dashboard[Dashboard UI]
+    Dashboard --> User((Viewer))
+```

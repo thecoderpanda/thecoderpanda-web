@@ -108,3 +108,14 @@ To get started with Hemera Protocol, visit the documentation: <https://docs.theh
 Join the UDF Builder Program: https://docs.thehemera.com/udf-builder-program to create your first custom data query and experience the power of Hemera firsthand.
 
 Blockchain data accessibility doesn’t have to be a challenge anymore. With Hemera Protocol, it’s fast, affordable, and developer-friendly. Embrace the future of blockchain data and start building with Hemera Protocol today!
+
+## Where Hemera sits in the stack
+
+```mermaid
+flowchart LR
+    Chains[(Ethereum / L2s)] --> Indexer[Hemera indexers]
+    Indexer --> Core[Hemera core store]
+    Core --> UDF[UDFs — user-defined feeds]
+    UDF --> Apps[Dashboards / bots / apps]
+    UDF --> Devs[Devs querying via SDK]
+```

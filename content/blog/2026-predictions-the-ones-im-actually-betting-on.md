@@ -119,3 +119,15 @@ Three things: (1) Get comfortable reviewing AI-generated code at speed — this 
 *Subscribe — I write about startups and technology weekly.*
 
 *— [Shantanu Vishwanadha](https://substack.com/@thecoderpanda)*
+
+## Where I'm putting my time in 2026
+
+```mermaid
+pie showData
+    title 2026 attention split
+    "AI dev tooling" : 40
+    "DevRel + community" : 25
+    "Writing + shipping in public" : 20
+    "Learning / research" : 10
+    "Everything else" : 5
+```

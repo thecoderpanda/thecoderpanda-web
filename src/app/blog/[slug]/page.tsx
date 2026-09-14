@@ -1,10 +1,11 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { marked } from "marked";
 import { getAllPosts, getPostBySlug, formatDate } from "@/lib/blog";
+import { renderMarkdown } from "@/lib/markdown";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import { ShareButtons } from "@/components/ShareButtons";
 import { NewsletterWidget } from "@/components/NewsletterWidget";
+import { PostEnhancer } from "@/components/PostEnhancer";
 
 export async function generateStaticParams() {
   return getAllPosts().map((p) => ({ slug: p.slug }));
@@ -45,7 +46,7 @@ export default async function BlogPostPage({
   const post = getPostBySlug(slug);
   if (!post) notFound();
 
-  const html = await marked(post.content, { breaks: true, gfm: true });
+  const html = renderMarkdown(post.content);
 
   return (
     <div className="min-h-screen bg-[#faf9f7]">
@@ -106,6 +107,7 @@ export default async function BlogPostPage({
             className="prose prose-stone max-w-none pt-8 blog-prose"
             dangerouslySetInnerHTML={{ __html: html }}
           />
+          <PostEnhancer />
         </AnimatedSection>
 
         <AnimatedSection delay={0.15}>

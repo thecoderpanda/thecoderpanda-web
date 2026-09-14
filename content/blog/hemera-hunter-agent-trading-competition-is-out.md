@@ -67,3 +67,21 @@ Buying:
 When Hunter Agent sends you a Token Alert, simply tap the Buy button below the notification to execute an instant trade
 
 ![](https://cdn-images-1.medium.com/max/962/0*TWrY2Yvh5gLZ8f86)
+
+## How the competition runs
+
+```mermaid
+sequenceDiagram
+    participant Dev as Builder
+    participant Agent
+    participant Hemera
+    participant Judge as Leaderboard
+    Dev->>Agent: deploy strategy
+    loop each round
+        Agent->>Hemera: fetch signals
+        Hemera-->>Agent: on-chain + off-chain data
+        Agent->>Agent: decide trade
+        Agent->>Judge: submit action
+    end
+    Judge-->>Dev: rank + rewards
+```

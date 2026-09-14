@@ -134,3 +134,18 @@ No — and I say that with confidence, not hedging. Junior developers bring some
 *Subscribe — I write about AI engineering and software development weekly.*
 
 *— [Shantanu Vishwanadha](https://substack.com/@thecoderpanda)*
+
+## The autonomous loop, drawn
+
+```mermaid
+flowchart TD
+    Goal[User goal] --> Plan[Plan]
+    Plan --> Act[Take action]
+    Act --> Observe[Observe result]
+    Observe --> Check{Goal met?}
+    Check -- No --> Plan
+    Check -- Yes --> Done[Report & stop]
+    Act -.-> Tool1[Read file]
+    Act -.-> Tool2[Run command]
+    Act -.-> Tool3[Edit file]
+```

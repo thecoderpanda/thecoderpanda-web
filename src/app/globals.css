@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+@import "highlight.js/styles/github.css";
+
 :root {
   --font-geist: "Geist", system-ui, -apple-system, sans-serif;
   --font-serif: var(--font-fraunces), "Iowan Old Style", "Georgia", serif;
@@ -182,4 +184,104 @@ body {
   font-family: var(--font-serif);
   font-optical-sizing: auto;
   font-variation-settings: "opsz" 24, "SOFT" 50;
+}
+
+/* ---- Code block with copy button ---- */
+.blog-prose .code-block {
+  margin: 2rem 0;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #e8e5e0;
+  background: #f8f6f2;
+}
+
+.blog-prose .code-block__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.9rem;
+  background: #ece8e0;
+  border-bottom: 1px solid #e0dcd3;
+  font-family: var(--font-ui);
+}
+
+.blog-prose .code-block__lang {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #7a7a7a;
+  font-weight: 600;
+}
+
+.blog-prose .code-block__copy {
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  color: #4a4a4a;
+  background: transparent;
+  border: 1px solid #d4d0c8;
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  cursor: pointer;
+  font-family: var(--font-ui);
+  font-weight: 500;
+  transition: all 0.15s ease;
+}
+
+.blog-prose .code-block__copy:hover {
+  background: #faf9f7;
+  color: #1a1a1a;
+  border-color: #1a1a1a;
+}
+
+.blog-prose .code-block__copy.is-copied {
+  background: #1a1a1a;
+  color: #faf9f7;
+  border-color: #1a1a1a;
+}
+
+.blog-prose .code-block pre {
+  margin: 0;
+  padding: 1.1rem 1.25rem;
+  background: #f8f6f2;
+  border-radius: 0;
+  overflow-x: auto;
+}
+
+.blog-prose .code-block pre code.hljs {
+  background: transparent;
+  padding: 0;
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: #24292e;
+}
+
+/* ---- Mermaid ---- */
+.blog-prose .mermaid-wrapper {
+  margin: 2.25rem 0;
+  padding: 1.5rem;
+  background: #ffffff;
+  border: 1px solid #e8e5e0;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  overflow-x: auto;
+}
+
+.blog-prose .mermaid-wrapper .mermaid {
+  min-width: 0;
+  font-family: var(--font-ui);
+}
+
+.blog-prose .mermaid-wrapper .mermaid svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.blog-prose .mermaid-error {
+  color: #b0413e;
+  background: #faeaea;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  font-family: ui-monospace, "SF Mono", "Menlo", monospace;
+  font-size: 0.85rem;
 }

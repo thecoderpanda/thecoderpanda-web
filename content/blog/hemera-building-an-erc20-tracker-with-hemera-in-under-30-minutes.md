@@ -260,3 +260,13 @@ Have ideas or want to contribute? Join our **Builder Program** to get early acce
 👉 **Join our Telegram Community**: [Hemera Builders](https://t.me/+lRAwDZJc65UyZDY1)
 
 Your creativity can redefine how data interacts with blockchain. Build with us!
+
+## The pipeline in one picture
+
+```mermaid
+flowchart LR
+    Chain[Chain events] --> Sub[Hemera subscription]
+    Sub --> Store[(Local store)]
+    Store --> API[Your API]
+    API --> UI[Tracker UI]
+```

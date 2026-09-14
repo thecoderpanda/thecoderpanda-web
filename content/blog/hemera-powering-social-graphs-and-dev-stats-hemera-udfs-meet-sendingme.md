@@ -74,3 +74,15 @@ This essentially reduces scams and eventually improving interactions. Knowing wh
 The Hemera-SendingMe integration isn’t just a technical milestone; it’s a glimpse into the future of Web3 applications. By combining Hemera’s indexing prowess with SendingMe’s user-centric approach, this partnership sets a new standard for how blockchain data can be leveraged to enhance community platforms.
 
 So, the next time you log in to SendingMe and marvel at the stats on your dashboard, you’ll know the magic behind the scenes: Hemera UDFs, bridging the gap between data and delight.
+
+## SendingMe × Hemera, at a glance
+
+```mermaid
+flowchart LR
+    SM[SendingMe events] --> Ingest[Hemera ingest]
+    Chain[On-chain activity] --> Ingest
+    Ingest --> Graph[Social graph UDF]
+    Ingest --> Dev[Dev stats UDF]
+    Graph --> Apps
+    Dev --> Apps[Consumer apps]
+```
