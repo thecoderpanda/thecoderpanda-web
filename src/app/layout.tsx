@@ -31,11 +31,7 @@ export const metadata: Metadata = {
 
 const navLinks = [
   { label: "Products", href: "/products", external: false },
-  {
-    label: "Writing",
-    href: "https://thecoderpanda.substack.com",
-    external: true,
-  },
+  { label: "Blog", href: "/blog", external: false },
   {
     label: "GitHub",
     href: "https://github.com/thecoderpanda",

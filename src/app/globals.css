@@ -40,3 +40,51 @@ body {
   --tw-prose-th-borders: #e8e5e0;
   --tw-prose-td-borders: #f0ede8;
 }
+
+.blog-prose {
+  font-size: 1.075rem;
+  line-height: 1.8;
+}
+
+.blog-prose a {
+  text-decoration-color: #c0bdb8;
+  text-underline-offset: 3px;
+}
+
+.blog-prose a:hover {
+  text-decoration-color: #1a1a1a;
+}
+
+.blog-prose img {
+  border-radius: 8px;
+  margin: 2rem auto;
+}
+
+.blog-prose pre {
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.blog-prose :not(pre) > code {
+  background-color: #f0ede8;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.blog-prose :not(pre) > code::before,
+.blog-prose :not(pre) > code::after {
+  content: "";
+}
+
+.blog-prose blockquote {
+  font-style: normal;
+  border-left-width: 3px;
+  padding-left: 1.25rem;
+  color: #4a4a4a;
+}
+
+.blog-prose blockquote p::before,
+.blog-prose blockquote p::after {
+  content: "";
+}
