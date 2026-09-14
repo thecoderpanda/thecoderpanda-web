@@ -87,6 +87,27 @@ That single markdown file is the artifact your leadership actually wanted all al
 
 ---
 
+## How the pieces fit together
+
+```mermaid
+flowchart LR
+  GH[GitHub API] --> ING[Ingest workers]
+  DC[Discord API] --> ING
+  YT[YouTube API] --> ING
+  DTO[Dev.to API] --> ING
+  GA[Google Analytics] --> ING
+  ING --> Q[(Redis queue)]
+  Q --> N[Normalizer]
+  N --> DB[(Postgres:<br/>events + actors + activities)]
+  DB --> ATTR[Attribution engine]
+  ATTR --> API[REST + GraphQL API]
+  API --> WEB[Next.js dashboard]
+  API --> DIG[Weekly digest]
+  DIG --> SL[Slack / Email]
+```
+
+Every source is a pluggable adapter — add a new one by dropping a file in `adapters/` and registering it. No source is privileged; DevPulse doesn't care whether a metric came from GitHub or a CSV upload.
+
 ## Hosting: local and free
 
 I built DevPulse on the assumption that DevRel teams should not have to file a procurement ticket to measure their own work. Two paths:

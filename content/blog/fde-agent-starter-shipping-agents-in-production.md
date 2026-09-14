@@ -91,6 +91,32 @@ This is the piece that makes the template different from every other agent start
 
 Skills are *portable across runtimes* — copy or symlink the folder into whatever agent you use. The `skills/README.md` walks through install for Claude Code, Zencoder, and a generic Anthropic-compatible runtime.
 
+## How a request flows through the agent
+
+```mermaid
+sequenceDiagram
+  participant U as User
+  participant API as API (Next.js)
+  participant G as Agent graph
+  participant T as Tools
+  participant E as Evals
+  participant O as Observability<br/>(Langfuse)
+
+  U->>API: POST /run { input }
+  API->>G: invoke(input)
+  G->>O: start trace
+  loop plan → act → observe
+    G->>T: call tool(schema-validated)
+    T-->>G: typed result
+    G->>O: log step
+  end
+  G-->>API: final answer + citations
+  API-->>U: 200 { output, trace_id }
+  Note over E,O: Nightly job replays<br/>golden cases and diffs<br/>pass rates vs main
+```
+
+Every arrow above is a place where things break in production — and every one has a corresponding skill in `.skills/` that knows how to debug it.
+
 ## Why this is a template repo, not a framework
 
 There's a temptation, once you notice a pattern, to package it as a library. I resisted that on purpose.
