@@ -1,7 +1,7 @@
 ---
 title: "The Founder Pattern Our Ecosystem Quietly Rewards"
 subtitle: "The serial-dabbler who calls it 'ecosystem building,' shouts about values, funds a lifestyle on the company card, and keeps pitching a pivot into whichever consumer market is currently owned by a decade-old public company. I've worked for this person. So have you."
-date: 2026-09-17T09:00:00.000Z
+date: 2026-09-15T09:00:00.000Z
 slug: the-indian-startup-founder-archetype-nobody-writes-about
 tags: [Startups, India, Founders, Opinion, Ecosystem]
 ---
