@@ -8,6 +8,8 @@ tags: [AI, Blockchain, Opinion, Web3, Thought Leadership]
 
 # AI + Blockchain: The Honest Postmortem
 
+![Abstract network of nodes and connections — the aesthetic that raised the money](https://images.unsplash.com/photo-1639322537228-f710d846310a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80)
+
 > **TL;DR:** "AI × blockchain" is one of the most funded, most pitched, least used categories in tech. The failure isn't technical — it's that nobody was asking for the thing the crossover solves. And the industry's favourite consolation prize ("but users want *sovereignty*!") is, mostly, a story we tell ourselves. Let me make the case, and then let me argue with myself.
 
 I've spent the last few years around both worlds. I've shipped on-chain data infrastructure. I've built agentic tools. I've watched every VC deck in 2023–2025 stitch the two words together with a plus sign and a straight face.
@@ -32,6 +34,8 @@ Each of these is technically real. Each has a working demo somewhere. Each has r
 None of them has a product with 10,000 daily active humans using it, unprompted, because it makes their life better.
 
 That is the failure. Not "regulation." Not "UX." Not "we're early." The failure is: **when the tech works, the demand isn't there.**
+
+![Demo day slide vs the empty analytics dashboard the morning after](https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80)
 
 ## The stack, and where each layer stalls
 
@@ -103,11 +107,15 @@ The reality: users run models they can't verify every day. They paste secrets in
 
 Verifiable inference *does* matter in a few B2B contexts (regulated finance, some healthcare workflows, model marketplaces auditing sellers). But those are enterprise SaaS deals, not token-gated protocols. And they usually pick TEEs over ZK because ZK inference is still an order of magnitude too expensive for real model sizes.
 
+![Verifying every inference: interesting engineering, non-existent consumer demand](https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80)
+
 ### 4. The "agent economy" doesn't need a chain to work
 
 The version of agent-to-agent payments that's actually shipping in 2026 is: agents use Stripe. Or corporate cards. Or the Anthropic Payments API. Or wire transfers via a fintech.
 
 The stablecoin-on-a-chain version exists, has meaningful volume, and — importantly — is mostly used between *businesses that already run crypto rails*. It's not the new substrate for agent commerce; it's a payment method some agents happen to use. That's fine. It's just not a category.
+
+![The keys everybody says they want. And where they actually end up.](https://images.unsplash.com/photo-1633265486064-086b219458ec?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80)
 
 ## And now — the sovereignty argument
 
@@ -135,6 +143,8 @@ Self-custody is the *engineer's* aesthetic preference. It is not the general pop
 
 If self-sovereign *money* — the thing crypto was allegedly for — didn't win the sovereignty argument, self-sovereign *AI memory* is not going to.
 
+![Sovereignty vs convenience — where users actually cluster](/blog-illustrations/sovereignty-vs-convenience.svg)
+
 ### Where I'd steelman the opposing view
 
 I want to be intellectually honest here, so let me argue against myself. There are three ways I could be wrong.
@@ -146,6 +156,8 @@ I want to be intellectually honest here, so let me argue against myself. There a
 **3. Legal and geopolitical pressure.** GDPR forced a data-locality architecture that would have been laughed out of a Bay Area boardroom in 2010. If AI providers get treated like utilities — with mandatory data residency, mandatory model provenance, mandatory audit — a lot of "boring" blockchain infrastructure suddenly becomes attractive as a compliance substrate. Not because users demand it; because regulators do.
 
 I take (2) most seriously. If any version of the sovereignty pitch survives, it's the agent one. It has a real mechanic underneath it — not aesthetics.
+
+![Agents don't have a body to call support with — that's where the sovereignty pitch finally maps to a real mechanic](https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80)
 
 ## So what did the crossover actually produce?
 
