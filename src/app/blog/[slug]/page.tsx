@@ -117,6 +117,13 @@ export default async function BlogPostPage({
         <AnimatedSection delay={0.2}>
           <NewsletterWidget />
         </AnimatedSection>
+
+        <AnimatedSection delay={0.25}>
+          <p className="text-xs text-[#9a9a9a] italic leading-relaxed text-center mt-10 pt-6 border-t border-[#e8e5e0]">
+            Opinions are strictly mine. They don&apos;t represent my employer in
+            any capacity.
+          </p>
+        </AnimatedSection>
       </main>
     </div>
   );

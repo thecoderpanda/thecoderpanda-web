@@ -40,6 +40,13 @@ export default function BlogPage() {
                 Notes on developer relations, AI tooling, and building things
                 worth using.
               </p>,
+              <p
+                key="disclaimer"
+                className="text-xs text-[#9a9a9a] italic leading-relaxed max-w-md mt-6"
+              >
+                Opinions are strictly mine. They don&apos;t represent my
+                employer in any capacity.
+              </p>,
             ]}
           </AnimatedHero>
         </section>
