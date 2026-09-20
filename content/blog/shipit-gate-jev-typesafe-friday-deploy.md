@@ -1,81 +1,72 @@
 ---
-title: "I Built a Tiny Robot That Yells At Me For Shipping On Fridays"
-subtitle: "A very chill weekend hobby project with TypeSafe AI's new Jev model. No agents. No prompts. Just vibes and a boolean."
+title: "shipit-gate: A Small Deploy Guard Built on TypeSafe's Jev"
+subtitle: "Part 1 of a short series on TypeSafe AI. A weekend pilot to see what a typed judgment model actually feels like in real code."
 date: 2026-09-20T18:00:00.000Z
 slug: shipit-gate-jev-typesafe-friday-deploy
 cover: /blog-covers/shipit-gate-jev-typesafe-friday-deploy.png
 ---
 
-![shipit-gate — the AI deploy gate, powered by Jev](https://raw.githubusercontent.com/thecoderpanda/shipit-gate/main/docs/assets/hero.png)
+![shipit-gate — a small deploy guard powered by Jev](https://raw.githubusercontent.com/thecoderpanda/shipit-gate/main/docs/assets/hero.png)
 
-# I Built a Tiny Robot That Yells At Me For Shipping On Fridays
+> **Series** — Part 1 of *Building with TypeSafe*. This one is a pilot: a small CLI to get a feel for the SDK. Follow-ups will get into scoring, cascades, and pattern composition.
+>
+> **Repo:** [github.com/thecoderpanda/shipit-gate](https://github.com/thecoderpanda/shipit-gate) &nbsp;·&nbsp; **npm:** [npmjs.com/package/shipit-gate](https://www.npmjs.com/package/shipit-gate)
 
-Hey. So, I had a Saturday. And I saw this thing on X about **TypeSafe AI** and **Jev** trending, and I thought "cool, another AI thing". Then I actually read the docs and went "wait, hold on, this is different."
+I noticed **TypeSafe AI** and its flagship model **Jev** trending on X and spent a Saturday reading the docs. The programming model was interesting enough that I wanted to feel it in my hands rather than reason about it, so I built the smallest useful thing I could think of: a CLI that inspects a git tree and asks Jev whether it is a good idea to deploy right now.
 
-So I did what any normal person does with a free afternoon: **I built a tiny CLI that stops me from deploying on Friday nights.**
-
-It's called [`shipit-gate`](https://github.com/thecoderpanda/shipit-gate). It's a hobby project. It's on npm. It's silly. It also kind of works. Let me explain.
-
----
-
-## First — what even is TypeSafe AI? What is Jev?
-
-Okay, in the simplest possible English:
-
-**Every AI SDK you've used goes like this:**
-
-> "Hey LLM, please answer my question. And please, please, PLEASE return valid JSON. I'm begging you. Here's the schema. Don't add a `<thinking>` tag. Don't wrap it in markdown. Just… JSON. Please."
-
-And then you write a `try/catch` around `JSON.parse` and hope for the best.
-
-**TypeSafe flips this on its head.** Their models — called **System One** models — don't generate text at all. You give them:
-
-1. Some **state** (whatever context matters — a git diff, a support ticket, a form input, whatever)
-2. Some **typed questions** — like "is this urgent?" or "which category?" or "how risky, 1–10?"
-
-And you get back **typed answers with confidence scores**. Not text. Not JSON-flavored text. Actual numbers and enums that your code can just… use.
-
-![How Jev works — you send state and typed questions, Jev returns typed answers with confidence](https://raw.githubusercontent.com/thecoderpanda/shipit-gate/main/docs/assets/how-jev-works.png)
-
-**Jev** is their flagship System One model. The three question types you'll use most:
-
-- **`noul`** — probability of yes. Ask "is this a bug?" get back `0.83`.
-- **`choice`** — pick one from a defined list. Ask "which severity?" get back `"high"` with a confidence.
-- **`score`** — where does this sit on a 0–10 scale. Ask "how spicy is this take?" get back `7.2`.
-
-That's it. That's the whole vibe. It's fast (~200ms), it's cheap (fraction of a cent), and you never write `JSON.parse` again.
-
-If you've ever built anything with LLMs, that last sentence should give you a small dopamine hit.
+The result is [`shipit-gate`](https://github.com/thecoderpanda/shipit-gate) — installable from [npm](https://www.npmjs.com/package/shipit-gate), MIT licensed, and deliberately tiny. Treat it as a pilot, not a product. What follows is a short tour of both the tool and the ideas behind it, aimed at anyone who has spent too much time wrapping `JSON.parse` in a `try/catch`.
 
 ---
 
-## Okay so… what does shipit-gate actually do?
+## What TypeSafe and Jev actually are
 
-It's a CLI. You run it before you deploy. It looks at your git tree and asks Jev one question: **"bro, is it safe to ship this?"**
+Most LLM SDKs share the same shape: you write a prompt, ask politely for JSON, parse the response, and add defensive code around every field. The model generates text; your code tries to coerce that text back into a type.
 
-![shipit-gate in 3 steps — read git tree, ask Jev, ship or wait](https://raw.githubusercontent.com/thecoderpanda/shipit-gate/main/docs/assets/how-it-works.png)
+TypeSafe's **System One** models invert that. Instead of generating text, they answer typed questions over a piece of state:
 
-Here's what it collects and hands to Jev, all in one call:
+1. You provide **state** — the input the decision hinges on (a git diff, a ticket, a form).
+2. You provide **typed questions** — small, named judgments with clear criteria.
+3. You receive **typed answers with calibrated probabilities** — booleans, enums, or scores your code can use directly.
 
-- What time is it, what day, what timezone
-- What branch, is the tree dirty, how many uncommitted files
-- How big is the diff, does it touch auth / payments / migrations / infra
-- Did tests pass
-- Are you *sure* about this
+**Jev** is the flagship System One model. The three primitives you compose from are:
 
-Jev thinks for ~200ms and comes back with:
+- **`noul`** — probability of a yes/no condition (`0`–`1`).
+- **`choice`** — one option from a defined set, with a full probability distribution.
+- **`score`** — a position on a described scale, with confidence.
 
-- `should_block`: true/false
-- `deploy_confidence`: 0–1
-- `rollback_risk`: 0–1
-- `blast_radius`: `low` / `medium` / `high` / `critical`
-- A one-liner summary you can put in Slack
+![How Jev works — send state and typed questions, receive typed answers with confidence](https://raw.githubusercontent.com/thecoderpanda/shipit-gate/main/docs/assets/how-jev-works.png)
 
-If it says block, the CLI exits `1`. Your CI job fails. Your deploy stops. You go get a coffee.
+The mental shift is small but real. You stop writing prompts and start defining decisions.
 
-Here's what it looks like when I tried to ship a migration + billing change on a Friday afternoon (guilty):
+---
 
-![shipit-gate demo — BLOCKED vs CLEARED FOR TAKEOFF](https://raw.githubusercontent.com/thecoderpanda/shipit-gate/main/docs/assets/demo.png)
+## The shape of the tool
+
+`shipit-gate` collects deploy signals from the local environment, sends them to Jev as one request, and applies a small policy layer to the response.
+
+```mermaid
+flowchart LR
+    A[git tree<br/>branch · diff · tests<br/>clock · CI env] --> B[shipit-gate<br/>signal collector]
+    B --> C[TypeSafe · Jev<br/>6 typed questions<br/>one HTTP call]
+    C --> D[typed answers<br/>+ probabilities]
+    D --> E{policy<br/>gate}
+    E -- allow --> F[exit 0<br/>ship it]
+    E -- block --> G[exit 1<br/>with reasoning]
+```
+
+The full loop is a single round-trip to Jev, typically under ~250ms. The tool asks six questions in parallel over the same state — `should_block`, `deploy_success`, `rollback_needed`, `blast_radius`, `reason_category`, and a human-readable one-line verdict.
+
+![shipit-gate in three steps — read git tree, ask Jev, ship or wait](https://raw.githubusercontent.com/thecoderpanda/shipit-gate/main/docs/assets/how-it-works.png)
+
+The policy layer is intentionally boring: threshold checks on `deploy_confidence`, `rollback_risk`, and `blast_radius`. Raw judgments stay reusable; the policy is the part you tune per team.
+
+---
+
+## Example: a Friday afternoon deploy
+
+Here is what the CLI looks like when it decides a change is not worth shipping right now — a migration touching billing, late on a Friday, on a dirty branch.
+
+![shipit-gate demo — blocked vs cleared for takeoff](https://raw.githubusercontent.com/thecoderpanda/shipit-gate/main/docs/assets/demo.png)
 
 ```
 $ shipit check
@@ -115,22 +106,16 @@ $ shipit check
       • Blast radius = critical (auth/payments/data or core user flow)
 ```
 
-I love it. It's like having a slightly grumpy senior engineer who never sleeps and doesn't drink.
-
-![not on a Friday, bro](https://raw.githubusercontent.com/thecoderpanda/shipit-gate/main/docs/assets/friday-bot.png)
+The important detail is not that the tool refused — anyone can write `if (isFriday) block()`. It is that the decision, the confidence, and the human-readable summary all came from the same structured call, over the same state, in one round-trip.
 
 ---
 
-## The part where I geek out about the code
+## What the code actually looks like
 
-Okay stay with me, this is the fun part.
-
-I did NOT write "you are a helpful deploy engineer, please respond in valid JSON with the following fields, take a deep breath and think step by step."
-
-I wrote **six typed questions**. Here's the shape:
+The integration is a single request with six named questions. No prompt engineering, no output parsing.
 
 ```ts
-{
+const QUESTIONS = {
   should_block: {
     type: 'noul',
     instructions: 'Should this deploy be BLOCKED right now?',
@@ -150,10 +135,10 @@ I wrote **six typed questions**. Here's the shape:
     },
   },
   // ...four more
-}
+};
 ```
 
-And Jev sends back:
+The response is data, not text:
 
 ```json
 {
@@ -169,13 +154,13 @@ And Jev sends back:
 }
 ```
 
-That's **normal data**. My code does `if (decision.should_block) exit(1)`. There is no parsing. There is no praying. A `noul` is a **number** — it cannot be malformed, it cannot be `"yes"` sometimes and `"true"` other times.
-
-If you've written prompt-and-parse code, this is going to feel like taking off ski boots at the end of a long day.
+At the call site, this reduces to `if (decision.should_block) exit(1)`. A `noul` is a number; a `choice` is one of a known set. Neither can be malformed. The class of bug where the model returns `"yes"` on Tuesday and `true` on Wednesday simply does not exist here.
 
 ---
 
-## Try it (no API key needed, promise)
+## Try it
+
+The demo uses a mocked Jev response so you can see the three verdict states without an API key:
 
 ```bash
 git clone https://github.com/thecoderpanda/shipit-gate.git
@@ -183,9 +168,7 @@ cd shipit-gate && npm install && npm run build
 ./demo/run.sh
 ```
 
-That runs three back-to-back scenarios — a safe deploy ✅, a risky one 🟡, and a blocked one 🛑 — with a mocked Jev response so you don't need to sign up for anything.
-
-Or if you want the real thing:
+For the real integration:
 
 ```bash
 npm i -g shipit-gate
@@ -193,39 +176,35 @@ export TYPESAFE_API_KEY=sk_...
 shipit check
 ```
 
----
-
-## Stuff I want to try next
-
-This is a hobby project, so the roadmap is basically "whatever sounds fun on the next Saturday":
-
-- **`shipit history`** — track how many times `--force` overrides preceded an actual incident. I have a feeling the graph will be embarrassing.
-- **Slack ping** — post the blocked verdict + reasoning to `#deploys`. Peer pressure as a service.
-- **Sentry / Datadog signals** — "last time we shipped this file it broke" is a *huge* signal.
-- **Per-service policies** — one gate for the whole monorepo, different thresholds per service.
-
-If any of that sounds fun, the repo is wide open. PRs welcome. Add a signal, tighten a question, break my thresholds, whatever.
+- **npm:** [`shipit-gate`](https://www.npmjs.com/package/shipit-gate)
+- **GitHub:** [`thecoderpanda/shipit-gate`](https://github.com/thecoderpanda/shipit-gate)
+- **License:** MIT
 
 ---
 
-## The real takeaway
+## What I want to explore next
 
-I've been building with LLMs for a while and every year the models get better and the *interface* stays exactly the same: I write a prompt, I parse a string, I pray.
+This is Part 1, and the tool itself is intentionally minimal. A few directions I want to try in follow-up posts:
 
-TypeSafe is the first thing in a while that made me stop and go *"oh — this is what it should have looked like the whole time."*
+- **`shipit history`** — record every gate decision and correlate `--force` overrides with real incidents. A calibration study against your own team.
+- **Signal fusion** — mix in Sentry, Datadog, and PR review state as additional context; ask Jev the same questions with a richer view of the world.
+- **Per-service policies** — different thresholds for the payments service than for the internal admin panel.
+- **A Jev cookbook walk-through** — take one of the TypeSafe cookbook patterns (rerank, cascade, composite scoring) and build something small around it.
 
-Typed inputs. Typed outputs. Calibrated probabilities. My code owns the loop. The model owns the judgment. Nothing hallucinates a curly brace at 3am.
+Contributions are welcome. Open an issue, add a signal, tighten a question, or challenge the thresholds.
 
-If you've got a Saturday and a fuzzy problem — routing, ranking, extraction, guardrails, anything where a human would go "hmm, depends" — go read [the TypeSafe docs](https://docs.typesafe.ai) and build a little thing. That's how I ended up here.
+---
 
-**Repo:** [github.com/thecoderpanda/shipit-gate](https://github.com/thecoderpanda/shipit-gate)  
-**npm:** `npm i -g shipit-gate`  
-**License:** MIT, do whatever
+## Takeaway from the pilot
 
-I'll be over here, watching my CI logs, letting Jev save me from myself.
+Two things stood out after a weekend with Jev.
+
+The first is that the interface actually holds. Every LLM integration I have built spent a non-trivial share of its lifetime on parsing errors, retries, and schema drift. That entire category is missing here, because the model does not return text.
+
+The second is that decisions become composable. Six independent typed judgments over the same state, run in parallel, is a very different unit of work from one prompt that has to answer six questions in a fragile JSON envelope. Policy code, weights, and thresholds live in your codebase where they belong.
+
+That is enough to keep building. **Part 2** will pick a different problem — a ranker or an extractor — and get further into `score` and confidence-driven behavior. If you want to follow along, the repo is [github.com/thecoderpanda/shipit-gate](https://github.com/thecoderpanda/shipit-gate) and the package is on [npm](https://www.npmjs.com/package/shipit-gate).
+
+More soon.
 
 — The Coder Panda
-
-*P.S. Yes, I named it "shipit" because I'm not immune to the joke.*
-
-*P.P.S. If you're at TypeSafe reading this — the docs are great, the API is calm, Jev goes hard. Ship more.*
