@@ -46,7 +46,16 @@ export default async function BlogPostPage({
   const post = getPostBySlug(slug);
   if (!post) notFound();
 
-  const html = renderMarkdown(post.content);
+  const normalize = (s: string) =>
+    s.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+  const titleKey = normalize(post.title);
+  const bodyWithoutDuplicateTitle = post.content.replace(
+    /^(#\s+)(.+)$/m,
+    (match, _hash: string, heading: string) => {
+      return normalize(heading) === titleKey ? "" : match;
+    },
+  );
+  const html = renderMarkdown(bodyWithoutDuplicateTitle);
 
   return (
     <div className="min-h-screen bg-[#faf9f7]">

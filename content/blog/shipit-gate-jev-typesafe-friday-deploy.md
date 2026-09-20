@@ -3,6 +3,7 @@ title: "I Built a Tiny Robot That Yells At Me For Shipping On Fridays"
 subtitle: "A very chill weekend hobby project with TypeSafe AI's new Jev model. No agents. No prompts. Just vibes and a boolean."
 date: 2026-09-20T18:00:00.000Z
 slug: shipit-gate-jev-typesafe-friday-deploy
+cover: /blog-covers/shipit-gate-jev-typesafe-friday-deploy.png
 ---
 
 ![shipit-gate — the AI deploy gate, powered by Jev](https://raw.githubusercontent.com/thecoderpanda/shipit-gate/main/docs/assets/hero.png)
