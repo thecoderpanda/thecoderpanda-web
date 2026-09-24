@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Fraunces, Inter } from "next/font/google";
-import "./globals.css";
 import Link from "next/link";
+import "./globals.css";
 
 const geist = Geist({
   variable: "--font-geist",
@@ -21,15 +21,16 @@ const inter = Inter({
   display: "swap",
 });
 
+const description =
+  "Shantanu Vishwanadha works with AI and developer-tool teams on developer programs, technical content, and communities.";
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://thecoderpanda.com"),
-  title: "Shantanu Vishwanadha — thecoderpanda",
-  description:
-    "Developer Relations. Community Builder. Connecting developers with AI products that matter.",
+  title: "Shantanu Vishwanadha — Developer Relations",
+  description,
   openGraph: {
-    title: "Shantanu Vishwanadha — thecoderpanda",
-    description:
-      "Developer Relations. Community Builder. Connecting developers with AI products that matter.",
+    title: "Shantanu Vishwanadha — Developer Relations",
+    description,
     url: "https://thecoderpanda.com",
     siteName: "thecoderpanda",
     locale: "en_US",
@@ -37,30 +38,24 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary",
-    title: "Shantanu Vishwanadha — thecoderpanda",
-    description:
-      "Developer Relations. Community Builder. Connecting developers with AI products that matter.",
+    title: "Shantanu Vishwanadha — Developer Relations",
+    description,
   },
 };
 
 const navLinks = [
-  { label: "Products", href: "/products", external: false },
-  { label: "Blog", href: "/blog", external: false },
-  {
-    label: "GitHub",
-    href: "https://github.com/thecoderpanda",
-    external: true,
-  },
-  {
-    label: "LinkedIn",
-    href: "https://linkedin.com/in/thecoderpanda",
-    external: true,
-  },
-  {
-    label: "YouTube",
-    href: "https://youtube.com/@thecoderpanda",
-    external: true,
-  },
+  { label: "Products", href: "/products" },
+  { label: "Consulting", href: "/consulting" },
+  { label: "Speaking", href: "/speaking" },
+  { label: "Blog", href: "/blog" },
+];
+
+const socialLinks = [
+  { label: "GitHub", href: "https://github.com/thecoderpanda" },
+  { label: "LinkedIn", href: "https://linkedin.com/in/thecoderpanda" },
+  { label: "Twitter / X", href: "https://twitter.com/thecoderpanda" },
+  { label: "Substack", href: "https://thecoderpanda.substack.com" },
+  { label: "YouTube", href: "https://youtube.com/@thecoderpanda" },
 ];
 
 export default function RootLayout({
@@ -71,66 +66,21 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geist.variable} ${fraunces.variable} ${inter.variable} h-full`}>
       <body className="min-h-full bg-[#faf9f7] text-[#1a1a1a] antialiased">
-        <nav className="max-w-2xl mx-auto px-6 py-7 flex items-center justify-between">
-          <Link
-            href="/"
-            className="text-sm font-medium tracking-tight text-[#1a1a1a] hover:opacity-70 transition-opacity duration-200"
-          >
-            thecoderpanda
-          </Link>
-          <div className="flex items-center gap-5">
-            {navLinks.map((link) =>
-              link.external ? (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-[#6b6b6b] hover:text-[#1a1a1a] transition-colors duration-200"
-                >
-                  {link.label}
-                </a>
-              ) : (
-                <Link
-                  key={link.label}
-                  href={link.href}
-                  className="text-sm text-[#6b6b6b] hover:text-[#1a1a1a] transition-colors duration-200"
-                >
-                  {link.label}
-                </Link>
-              )
-            )}
-          </div>
-        </nav>
-        {children}
-        <footer className="max-w-2xl mx-auto px-6 py-10 border-t border-[#e8e5e0] mt-8">
-          <div className="flex items-center justify-between">
-            <span className="text-sm text-[#9a9a9a]">
-              © {new Date().getFullYear()} Shantanu Vishwanadha
-            </span>
-            <div className="flex items-center gap-5">
-              {navLinks.map((link) =>
-                link.external ? (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm text-[#9a9a9a] hover:text-[#1a1a1a] transition-colors duration-200"
-                  >
-                    {link.label}
-                  </a>
-                ) : (
-                  <Link
-                    key={link.label}
-                    href={link.href}
-                    className="text-sm text-[#9a9a9a] hover:text-[#1a1a1a] transition-colors duration-200"
-                  >
-                    {link.label}
-                  </Link>
-                )
-              )}
+        <a className="site-skip" href="#main-content">Skip to content</a>
+        <header className="site-header">
+          <nav className="site-header__inner" aria-label="Main navigation">
+            <Link href="/" className="site-header__brand" aria-label="Shantanu Vishwanadha, home"><span className="site-header__monogram" aria-hidden="true">S<span>V</span></span><span>SHANTANU VISHWANADHA<small>DEVELOPER RELATIONS</small></span></Link>
+            <div className="site-header__links">
+              {navLinks.map((link) => <Link key={link.label} href={link.href}>{link.label}</Link>)}
             </div>
+            <a className="site-header__action" href="https://cal.com/thecoderpanda/30min" target="_blank" rel="noopener noreferrer">Schedule a call <span aria-hidden="true">↗</span></a>
+          </nav>
+        </header>
+        <div id="main-content">{children}</div>
+        <footer className="site-footer">
+          <div className="site-footer__inner">
+            <div className="site-footer__top"><div><Link href="/" className="site-footer__brand">SV<span aria-hidden="true">.</span></Link><p>Developer relations, products, and communities.<br />Based in Bengaluru, India.</p></div><div className="site-footer__navigation"><div><span>EXPLORE</span>{navLinks.map((link) => <Link key={link.label} href={link.href}>{link.label}</Link>)}</div><div><span>ELSEWHERE</span>{socialLinks.map((link) => <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer">{link.label} ↗</a>)}</div></div></div>
+            <div className="site-footer__bottom"><span>© {new Date().getFullYear()} Shantanu Vishwanadha</span><span>BUILT WITH INTENTION / THECODERPANDA</span><Link href="#main-content">Back to top ↑</Link></div>
           </div>
         </footer>
       </body>

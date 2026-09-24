@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ReactNode } from "react";
 
 const container = {
@@ -29,8 +29,10 @@ interface AnimatedHeroProps {
 }
 
 export function AnimatedHero({ children }: AnimatedHeroProps) {
+  const reducedMotion = useReducedMotion();
+
   return (
-    <motion.div variants={container} initial="hidden" animate="show">
+    <motion.div variants={container} initial={reducedMotion ? false : "hidden"} animate="show">
       {children.map((child, i) => (
         <motion.div key={i} variants={item}>
           {child}

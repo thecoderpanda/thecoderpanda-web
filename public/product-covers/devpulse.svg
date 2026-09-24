@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="840" viewBox="0 0 1600 840" role="img" aria-labelledby="title description">
+  <title id="title">DevPulse</title>
+  <desc id="description">Monochrome developer engagement signal diagram</desc>
+  <rect width="1600" height="840" fill="#191918"/>
+  <g stroke="#343432" stroke-width="1">
+    <path d="M80 110H1520M80 730H1520M80 110V730M1520 110V730"/>
+    <path d="M80 235H1520M80 360H1520M80 485H1520M80 610H1520" stroke-dasharray="4 9"/>
+    <path d="M320 110V730M560 110V730M800 110V730M1040 110V730M1280 110V730" stroke-dasharray="4 9"/>
+  </g>
+  <g fill="none" stroke="#efeee8" stroke-width="5" stroke-linecap="square" stroke-linejoin="miter">
+    <path d="M115 500H264L310 426L363 556L435 332L504 487H615L678 422L748 500H845L906 390L973 544L1050 455L1107 500H1225L1296 430L1344 500H1485"/>
+  </g>
+  <g fill="#efeee8">
+    <circle cx="435" cy="332" r="10"/><circle cx="906" cy="390" r="10"/><circle cx="1296" cy="430" r="10"/>
+  </g>
+  <g fill="#efeee8" font-family="Arial, Helvetica, sans-serif">
+    <text x="116" y="185" font-size="90" font-weight="700" letter-spacing="-6">DevPulse</text>
+    <text x="120" y="682" font-size="22" font-weight="600" letter-spacing="5">DEVELOPER ENGAGEMENT / SIGNALS</text>
+    <text x="1310" y="680" font-size="19" letter-spacing="4">01 / 01</text>
+  </g>
+</svg>
