@@ -5,7 +5,7 @@ import { getAllProducts } from "@/lib/products";
 
 export default function Home() {
   const products = getAllProducts().filter((product) =>
-    ["fde-agent-starter", "polyground", "potli"].includes(product.slug),
+    ["fde-agent-starter", "nagpurjobs", "polyground", "potli"].includes(product.slug),
   );
 
   return (
