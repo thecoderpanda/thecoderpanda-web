@@ -1,3 +1,7 @@
+# thecoderpanda.com
+
+The website and blog by [thecoderpanda.com](http://thecoderpanda.com).
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
